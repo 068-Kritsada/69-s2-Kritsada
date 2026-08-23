@@ -1,0 +1,10 @@
+### Get All Items
+GET http://localhost:1337/api/items
+
+### Create Item
+POST http://localhost:1337/api/items
+Content-Type: application/json
+
+{
+  "name": "sample_item"
+}
