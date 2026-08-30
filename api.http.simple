@@ -1,6 +1,6 @@
 # REST
 
-### Login
+### Admin Login
 POST http://localhost:9192/admin/login
 Content-Type: application/json
 
@@ -10,7 +10,7 @@ Content-Type: application/json
   "rememberMe": false
 }
 
-### Register
+###Register
 POST http://localhost:9192/admin/register
 Content-Type: application/json
 
@@ -20,7 +20,7 @@ Content-Type: application/json
   "password": ""
 }
 
-### Forgot Password
+###Forgot Password
 POST http://localhost:9192/admin/forgot-password
 Content-Type: application/json
 
@@ -28,6 +28,39 @@ Content-Type: application/json
   "email": ""
 }
 
-### Profile
+###Profile
 GET http://localhost:9192/admin/profile
-Authorization: Bearer <your_token_here>
+Authorization: Bearer <your_admin_token_here>
+
+
+### User Login
+POST http://localhost:9192/user/login
+Content-Type: application/json
+
+{
+  "email": "",
+  "password": "",
+  "rememberMe": false
+}
+
+###Register
+POST http://localhost:9192/user/register
+Content-Type: application/json
+
+{
+  "username": "",
+  "email": "",
+  "password": ""
+}
+
+###Forgot Password
+POST http://localhost:9192/user/forgot-password
+Content-Type: application/json
+
+{
+  "email": ""
+}
+
+###Profile
+GET http://localhost:9192/user/profile
+Authorization: Bearer <your_user_token_here>
