@@ -5,62 +5,61 @@ POST http://localhost:9092/admin/login
 Content-Type: application/json
 
 {
-  "email": "",
-  "password": "",
-  "rememberMe": false
+    "email": "{{$processEnv ADMIN_EMAIL}}",
+    "password": "{{$processEnv ADMIN_PASSWORD}}",
+    "rememberMe": false
 }
 
-###Register
+### Register
 POST http://localhost:9092/admin/register
 Content-Type: application/json
 
 {
-  "username": "",
-  "email": "",
-  "password": ""
+    "username": "admin",
+    "email": "{{$processEnv ADMIN_EMAIL}}",
+    "password": "{{$processEnv ADMIN_PASSWORD}}"
 }
 
-###Forgot Password
+### Forgot Password
 POST http://localhost:9092/admin/forgot-password
 Content-Type: application/json
 
 {
-  "email": ""
+    "email": "{{$processEnv ADMIN_EMAIL}}"
 }
 
-###Profile
+### Profile
 GET http://localhost:9092/admin/profile
 Authorization: Bearer <your_admin_token_here>
-
 
 ### User Login
 POST http://localhost:9092/user/login
 Content-Type: application/json
 
 {
-  "email": "",
-  "password": "",
-  "rememberMe": false
+    "email": "{{$processEnv USER_EMAIL}}",
+    "password": "{{$processEnv USER_PASSWORD}}",
+    "rememberMe": false
 }
 
-###Register
+### Register
 POST http://localhost:9092/user/register
 Content-Type: application/json
 
 {
-  "username": "",
-  "email": "",
-  "password": ""
+    "username": "user",
+    "email": "{{$processEnv USER_EMAIL}}",
+    "password": "{{$processEnv USER_PASSWORD}}"
 }
 
-###Forgot Password
+### Forgot Password
 POST http://localhost:9092/user/forgot-password
 Content-Type: application/json
 
 {
-  "email": ""
+    "email": "{{$processEnv USER_EMAIL}}"
 }
 
-###Profile
+### Profile
 GET http://localhost:9092/user/profile
 Authorization: Bearer <your_user_token_here>
