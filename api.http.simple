@@ -1,65 +1,82 @@
 # REST
 
-### Admin Login
+## Variables
+@admin_email = {{$dotenv ADMIN_EMAIL}}
+@admin_password = {{$dotenv ADMIN_PASSWORD}}
+@user_email = {{$dotenv USER_EMAIL}}
+@user_password = {{$dotenv USER_PASSWORD}}
+
+## 1.Admin
+### 1.1 Login
 POST http://localhost:9092/admin/login
 Content-Type: application/json
 
 {
-    "email": "{{$processEnv ADMIN_EMAIL}}",
-    "password": "{{$processEnv ADMIN_PASSWORD}}",
+    "email": "{{admin_email}}",
+    "password": "{{admin_password}}",
     "rememberMe": false
 }
 
-### Register
-POST http://localhost:9092/admin/register
+### 1.2 Register (admin) one time for first time to create admin account
+POST http://localhost:9092/admin/register-admin
 Content-Type: application/json
 
 {
-    "username": "admin",
-    "email": "{{$processEnv ADMIN_EMAIL}}",
-    "password": "{{$processEnv ADMIN_PASSWORD}}"
+    "firstname": "Admin",
+    "lastname": "User",
+    "email": "{{admin_email}}",
+    "password": "{{admin_password}}"
 }
 
-### Forgot Password
+### 1.3 Forgot Password
 POST http://localhost:9092/admin/forgot-password
 Content-Type: application/json
 
 {
-    "email": "{{$processEnv ADMIN_EMAIL}}"
+    "email": "{{admin_email}}"
 }
 
-### Profile
-GET http://localhost:9092/admin/profile
-Authorization: Bearer <your_admin_token_here>
-
-### User Login
-POST http://localhost:9092/user/login
+### 1.3.1 Reset Password
+POST http://localhost:9092/admin/reset-password
 Content-Type: application/json
 
 {
-    "email": "{{$processEnv USER_EMAIL}}",
-    "password": "{{$processEnv USER_PASSWORD}}",
-    "rememberMe": false
+    "password": "{{admin_password}}",
+    "resetPasswordToken": "97939e342150650ea0acfba42a92d0a84ddcd8ab"
 }
 
-### Register
-POST http://localhost:9092/user/register
+### 1.4 Profile
+GET http://localhost:9092/admin/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzg5MzI2NTUxLCJleHAiOjE3OTE5MTg1NTF9.8x2hyihl6E1v6uTFgr7XqXF21tIOuw3EmwZwUAcgRk8
+
+## 2.User
+### 2.1 Login
+POST http://localhost:9092/api/auth/local
 Content-Type: application/json
 
 {
-    "username": "user",
-    "email": "{{$processEnv USER_EMAIL}}",
-    "password": "{{$processEnv USER_PASSWORD}}"
+    "identifier": "{{user_email}}",
+    "password": "{{user_password}}"
 }
 
-### Forgot Password
-POST http://localhost:9092/user/forgot-password
+### 2.2 Register
+POST http://localhost:9092/api/auth/local/register
 Content-Type: application/json
 
 {
-    "email": "{{$processEnv USER_EMAIL}}"
+    "username": "user2",
+    "email": "user2@gmail.com",
+    "password": "{{user_password}}"
 }
 
-### Profile
-GET http://localhost:9092/user/profile
-Authorization: Bearer <your_user_token_here>
+### 2.3 Forgot Password
+POST http://localhost:9092/api/auth/forgot-password
+Content-Type: application/json
+
+{
+    "email": "{{user_email}}"
+}
+
+### 2.4 Profile
+GET http://localhost:9092/api/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzg5MzI2OTcwLCJleHAiOjE3OTE5MTg5NzB9.1TC4UCKhY1cBETPmdjjMM1W4ZRLjOFQSuAmyyIsregU
